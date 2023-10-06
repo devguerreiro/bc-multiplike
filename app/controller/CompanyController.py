@@ -1,9 +1,10 @@
-from app.application.repositories.CompanyRepository import CompanyRepository
+from app.application.repositories.CompanyRepository import ICompanyRepository
+from app.application.usecase.ListCompanies import ListCompanies
 
 
 class CompanyController:
-    def init(self, repo: CompanyRepository = None):
+    def __init__(self, repo: ICompanyRepository):
         self.repo = repo
 
     def list(self):
-        return self.repo.list()
+        return ListCompanies(self.repo).handle()
