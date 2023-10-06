@@ -1,0 +1,24 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    networks:
+      - multiplike_net
+    ports:
+      - 8080:8080
+  db:
+    image: "mysql:8.1"
+    environment:
+      - MYSQL_ROOT_PASSWORD=multiplike
+      - MYSQL_DATABASE=multiplike_db
+    networks:
+      - multiplike_net
+    ports:
+      - 3306:3306
+
+networks:
+  multiplike_net:
