@@ -1,7 +1,7 @@
 from typing import List
 
-from app.application.repositories.CompanyRepository import ICompanyRepository
-from app.domain.entity.company import Company
+from app.domain.repositories.CompanyRepository import ICompanyRepository
+from app.domain.entities.company import Company
 
 
 class ListCompanies:
@@ -9,4 +9,4 @@ class ListCompanies:
         self.repo = repo
 
     def handle(self) -> List[Company]:
-        return self.repo.list()
+        return self.repo.get_all()

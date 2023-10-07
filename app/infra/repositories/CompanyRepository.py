@@ -1,9 +1,14 @@
 from typing import List
 
-from app.application.repositories.CompanyRepository import ICompanyRepository
-from app.domain.entity.company import Company
+from sqlalchemy.orm import Session
+
+from app.domain.repositories.CompanyRepository import ICompanyRepository
+from app.domain.entities.company import Company
 
 
 class CompanyRepository(ICompanyRepository):
-    def list(self) -> List[Company]:
-        return []
+    def __init__(self, db: Session):
+        self.db = db
+
+    def get_all(self) -> List[Company]:
+        return self.db.query(Company).all()

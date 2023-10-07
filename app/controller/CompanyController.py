@@ -1,5 +1,5 @@
-from app.application.repositories.CompanyRepository import ICompanyRepository
 from app.application.usecase.ListCompanies import ListCompanies
+from app.domain.repositories.CompanyRepository import ICompanyRepository
 
 
 class CompanyController:
