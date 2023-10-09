@@ -12,3 +12,6 @@ class CompanyRepository(ICompanyRepository):
 
     def get_all(self) -> List[Company]:
         return self.db.query(Company).all()
+
+    def get_by_cnpj(self, cnpj: str) -> Company:
+        return self.db.query(Company).filter(Company.cnpj == cnpj).first()

@@ -41,7 +41,7 @@ class Company(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100))
-    cnpj = Column(String(14))
+    cnpj = Column(String(14), unique=True, index=True)
     monthly_income = Column(Float)
     opened_date = Column(Date)
     created_at = Column(DateTime)

@@ -8,3 +8,7 @@ class ICompanyRepository(ABC):
     @abstractmethod
     def get_all(self) -> List[Company]:
         pass
+
+    @abstractmethod
+    def get_by_cnpj(self, cnpj: str) -> Company:
+        pass
