@@ -1,14 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-from app.domain.entities.company import Base
+from sqlalchemy.ext.declarative import declarative_base
 
 from app.env import DATABASE_URL
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base.metadata.create_all(bind=engine)
+Base = declarative_base()
 
 
 # Dependency

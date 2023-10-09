@@ -11,9 +11,9 @@ from sqlalchemy import (
     Table,
 )
 from sqlalchemy.orm import relationship, Mapped
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
+from app.infra.sqlalchemy import Base
+
 
 CompanyCNAE = Table(
     "company_cnae",

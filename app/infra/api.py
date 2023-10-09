@@ -1,10 +1,11 @@
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
+from app.infra.sqlalchemy import get_db, engine, Base
 from app.infra.repositories.CompanyRepository import CompanyRepository
-from app.infra.sqlalchemy import get_db
-
 from app.controller.CompanyController import CompanyController
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
