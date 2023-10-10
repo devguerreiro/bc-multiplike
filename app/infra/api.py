@@ -5,7 +5,7 @@ from app.infra.exceptions import BadRequestException, NotFoundException
 from app.infra.sqlalchemy import get_db, engine, Base
 from app.infra.repositories.company import CompanyRepository
 from app.controller.company import CompanyController
-from app.domain.schemas.company import CompanyCreate
+from app.domain.schemas.company import CompanyCreate, CompanyUpdate
 
 Base.metadata.create_all(bind=engine)
 
@@ -33,5 +33,17 @@ def retrieve_company(cnpj: str, db: Session = Depends(get_db)):
 def create_company(company: CompanyCreate, db: Session = Depends(get_db)):
     try:
         CompanyController(CompanyRepository(db)).create(company)
+    except ValueError as e:
+        return BadRequestException(e)
+
+
+@app.put("/companies/{company_id}", status_code=204)
+def update_company(
+    company_id: int,
+    data: CompanyUpdate,
+    db: Session = Depends(get_db),
+):
+    try:
+        CompanyController(CompanyRepository(db)).update(company_id, data)
     except ValueError as e:
         return BadRequestException(e)

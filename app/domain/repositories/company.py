@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List
 
 from app.domain.entities.company import CNAE, Company
+from app.domain.schemas.company import CompanyUpdate
 
 
 class ICompanyRepository(ABC):
@@ -19,4 +20,12 @@ class ICompanyRepository(ABC):
 
     @abstractmethod
     def get_cnaes_by_ids(self, ids: List[int]) -> List[CNAE]:
+        pass
+
+    @abstractmethod
+    def update(self, company: Company, data: CompanyUpdate) -> None:
+        pass
+
+    @abstractmethod
+    def get_by_id(self, id: int) -> Company | None:
         pass
