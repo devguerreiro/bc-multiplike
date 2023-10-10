@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from app.domain.entities.company import Company
+from app.domain.entities.company import CNAE, Company
 
 
 class ICompanyRepository(ABC):
@@ -11,4 +11,12 @@ class ICompanyRepository(ABC):
 
     @abstractmethod
     def get_by_cnpj(self, cnpj: str) -> Company:
+        pass
+
+    @abstractmethod
+    def insert(self, company: Company):
+        pass
+
+    @abstractmethod
+    def get_cnaes_by_ids(self, ids: List[int]) -> List[CNAE]:
         pass

@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from sqlalchemy import (
@@ -18,7 +19,7 @@ from app.infra.sqlalchemy import Base
 CompanyCNAE = Table(
     "company_cnae",
     Base.metadata,
-    Column("id", Integer, primary_key=True, index=True),
+    Column("id", Integer, primary_key=True, index=True, autoincrement=True),
     Column("company_id", ForeignKey("company.id"), primary_key=True),
     Column("cnae_id", ForeignKey("cnae.id"), primary_key=True),
 )
@@ -44,7 +45,7 @@ class Company(Base):
     cnpj = Column(String(14), unique=True, index=True)
     monthly_income = Column(Float)
     opened_date = Column(Date)
-    created_at = Column(DateTime)
+    created_at = Column(DateTime, default=datetime.now())
 
     cnaes: Mapped[List["CNAE"]] = relationship(
         secondary=CompanyCNAE, back_populates="companies"

@@ -3,7 +3,7 @@ from typing import List
 from sqlalchemy.orm import Session
 
 from app.domain.repositories.CompanyRepository import ICompanyRepository
-from app.domain.entities.company import Company
+from app.domain.entities.company import CNAE, Company
 
 
 class CompanyRepository(ICompanyRepository):
@@ -15,3 +15,10 @@ class CompanyRepository(ICompanyRepository):
 
     def get_by_cnpj(self, cnpj: str) -> Company:
         return self.db.query(Company).filter(Company.cnpj == cnpj).first()
+
+    def insert(self, company: Company):
+        self.db.add(company)
+        self.db.commit()
+
+    def get_cnaes_by_ids(self, ids: List[int]) -> List[CNAE]:
+        return self.db.query(CNAE).filter(CNAE.id.in_(ids)).all()
