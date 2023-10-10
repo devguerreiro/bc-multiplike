@@ -38,3 +38,7 @@ class CompanyRepository(ICompanyRepository):
 
     def get_by_id(self, id: int) -> Company | None:
         return self.db.query(Company).get(id)
+
+    def delete(self, company: Company) -> None:
+        self.db.delete(company)
+        self.db.commit()

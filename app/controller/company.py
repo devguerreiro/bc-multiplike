@@ -1,6 +1,7 @@
 from typing import List
 
 from app.application.usecase.create_company import CreateCompany
+from app.application.usecase.delete_company import DeleteCompany
 from app.application.usecase.retrieve_company import RetrieveCompany
 from app.application.usecase.list_companies import ListCompanies
 from app.application.usecase.update_company import UpdateCompany
@@ -24,3 +25,6 @@ class CompanyController:
 
     def update(self, company_id: int, data: CompanyUpdate) -> None:
         UpdateCompany(self.repo).handle(company_id, data)
+
+    def delete(self, company_id: int) -> None:
+        DeleteCompany(self.repo).handle(company_id)

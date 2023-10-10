@@ -47,3 +47,11 @@ def update_company(
         CompanyController(CompanyRepository(db)).update(company_id, data)
     except ValueError as e:
         return BadRequestException(e)
+
+
+@app.delete("/companies/{company_id}", status_code=204)
+def delete_company(company_id: int, db: Session = Depends(get_db)):
+    try:
+        CompanyController(CompanyRepository(db)).delete(company_id)
+    except ValueError as e:
+        return BadRequestException(e)

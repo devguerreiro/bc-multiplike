@@ -29,3 +29,7 @@ class ICompanyRepository(ABC):
     @abstractmethod
     def get_by_id(self, id: int) -> Company | None:
         pass
+
+    @abstractmethod
+    def delete(self, company: Company) -> None:
+        pass
