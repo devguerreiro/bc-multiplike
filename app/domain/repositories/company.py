@@ -10,11 +10,11 @@ class ICompanyRepository(ABC):
         pass
 
     @abstractmethod
-    def get_by_cnpj(self, cnpj: str) -> Company:
+    def get_by_cnpj(self, cnpj: str) -> Company | None:
         pass
 
     @abstractmethod
-    def insert(self, company: Company):
+    def insert(self, company: Company) -> None:
         pass
 
     @abstractmethod

@@ -1,5 +1,5 @@
 from app.domain.entities.company import Company
-from app.domain.repositories.CompanyRepository import ICompanyRepository
+from app.domain.repositories.company import ICompanyRepository
 from app.domain.schemas.company import CompanyCreate
 
 
@@ -7,7 +7,7 @@ class CreateCompany:
     def __init__(self, repo: ICompanyRepository) -> None:
         self.repo = repo
 
-    def handle(self, company: CompanyCreate):
+    def handle(self, company: CompanyCreate) -> None:
         if self.repo.get_by_cnpj(company.cnpj):
             raise ValueError("Company already exists")
 
