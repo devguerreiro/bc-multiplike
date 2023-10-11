@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from decimal import Decimal
 from typing import List
 from pydantic import BaseModel, Field, field_validator
@@ -53,3 +53,30 @@ class CompanyCreate(CompanyWrite):
 
 class CompanyUpdate(CompanyWrite):
     pass
+
+
+class CNAERead(BaseModel):
+    id: int
+    code: int
+    description: str
+
+
+class CompanyRead(BaseModel):
+    id: int
+    name: str
+    cnpj: str
+
+
+class CompanyList(CompanyRead):
+    class Config:
+        orm_mode = True
+
+
+class CompanyRetrieve(CompanyRead):
+    monthly_income: float
+    opened_date: date
+    created_at: datetime
+    cnaes: List[CNAERead] = []
+
+    class Config:
+        orm_mode = True

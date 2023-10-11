@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 
@@ -5,19 +6,24 @@ from app.infra.exceptions import BadRequestException, NotFoundException
 from app.infra.sqlalchemy import get_db, engine, Base
 from app.infra.repositories.company import CompanyRepository
 from app.controller.company import CompanyController
-from app.domain.schemas.company import CompanyCreate, CompanyUpdate
+from app.domain.schemas.company import (
+    CompanyCreate,
+    CompanyList,
+    CompanyRetrieve,
+    CompanyUpdate,
+)
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 
-@app.get("/companies")
+@app.get("/companies", response_model=List[CompanyList])
 def list_companies(db: Session = Depends(get_db)):
     return CompanyController(CompanyRepository(db)).list()
 
 
-@app.get("/companies/{cnpj}")
+@app.get("/companies/{cnpj}", response_model=CompanyRetrieve)
 def retrieve_company(cnpj: str, db: Session = Depends(get_db)):
     try:
         data = CompanyController(CompanyRepository(db)).retrieve(cnpj)
